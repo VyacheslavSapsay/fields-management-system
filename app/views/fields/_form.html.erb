@@ -1,0 +1,13 @@
+<p><%= RGeo::GeoJSON.encode(field.shape).to_json  %></p>
+<%= form_for field do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.hidden_field :shape, id: 'shape-field', value: RGeo::GeoJSON.encode(field.shape).to_json %>
+
+	<%= f.submit 'Save' %>
+<% end %>
+    <p class="shape-cors" style="display: none;">
+      <%= raw RGeo::GeoJSON.encode(field.shape).to_json %>
+    </p>
+<%= render 'map' %>

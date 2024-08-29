@@ -8,6 +8,15 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+
+    <style>
+      #map {
+        height: 900px;
+        width: 100%;
+      }
+    </style>
+    <%= yield :head%>
   </head>
 
   <body>
