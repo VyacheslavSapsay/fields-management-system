@@ -19,4 +19,98 @@ $(document).ready(function () {
       }
     });
   }
+
+  if ($(".edit-field").length > 0) {
+    var map = L.map("map").setView([51.505, -0.09], 13);
+    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    var allLayers = [];
+
+    var shapeField = document.getElementById("shape-field").value;
+    var savedPolygonData = shapeField ? JSON.parse(shapeField) : null;
+
+    if (savedPolygonData) {
+      var geoJsonLayer = L.geoJSON(savedPolygonData);
+
+      geoJsonLayer.eachLayer(function (layer) {
+        allLayers.push(layer);
+        layer.addTo(map);
+
+        layer.pm.enable({ allowSelfIntersection: false });
+
+        layer.on("pm:edit", function (e) {
+          updateShapeField();
+        });
+      });
+
+      // Отримуємо межі всіх полігонів і встановлюємо карту в ці межі
+      var bounds = geoJsonLayer.getBounds();
+      map.fitBounds(bounds);
+    }
+
+    function updateShapeField() {
+      var geoJsonFeatures = allLayers.map(function (layer) {
+        return layer.toGeoJSON();
+      });
+
+      var updatedGeoJSON = {
+        type: "FeatureCollection",
+        features: geoJsonFeatures,
+      };
+
+      var updatedJsonString = JSON.stringify(updatedGeoJSON);
+      document.getElementById("shape-field").value = updatedJsonString;
+      console.log("Оновлене значення прихованого поля:", updatedJsonString);
+    }
+
+    map.on("pm:create", function (e) {
+      var layer = e.layer;
+      allLayers.push(layer);
+      layer.addTo(map);
+      console.log("Новий полігон доданий в allLayers:", allLayers);
+      updateShapeField();
+
+      layer.pm.enable({ allowSelfIntersection: false });
+
+      layer.on("pm:edit", function (e) {
+        updateShapeField();
+      });
+    });
+
+    map.on("pm:edit", function (e) {
+      updateShapeField();
+    });
+
+    map.on("pm:remove", function (e) {
+      allLayers = allLayers.filter(function (layer) {
+        return layer._leaflet_id !== e.layer._leaflet_id;
+      });
+      updateShapeField();
+    });
+
+    map.on("pm:dragend", function (e) {
+      updateShapeField();
+    });
+
+    map.on("pm:cut", function (e) {
+      updateShapeField();
+    });
+
+    map.pm.addControls({
+      position: "topleft",
+      drawMarker: false,
+      drawPolyline: false,
+      drawRectangle: false,
+      drawCircle: false,
+      drawText: false,
+      drawPolygon: true,
+      cutPolygon: true,
+      editMode: true,
+      removalMode: true,
+      dragMode: true,
+    });
+  }
 });
