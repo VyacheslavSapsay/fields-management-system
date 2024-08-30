@@ -1,6 +1,6 @@
 <% content_for :head do %> 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 	<style>
 		#map {
 			height: 400px;
@@ -9,7 +9,25 @@
 	</style>
 <% end  %>
 
+<div id="map"></div>
 
-<% @fields.each do |field| %>
-    <%= render field %>
-<% end %>
+<table class="table fields-index">
+  <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Area</th>
+    </tr>
+  </thead>
+    <tbody>
+			<% @fields.each do |field| %>
+			  <tr id="field-<%= field.id %>">
+          <td><%= field.id %></td>
+          <td><%= link_to field.name, edit_field_path(field) %></td>
+          <td>field.area</td>
+					<td hidden class="item-geojson"><%= RGeo::GeoJSON.encode(field.shape).to_json %></td>
+					<td hidden class="item-link"><%= link_to field.name, field_path(field) %></td>
+        </tr>
+			<% end %>
+    </tbody>
+</table>

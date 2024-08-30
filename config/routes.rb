@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'fields#index'
   resources :fields
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

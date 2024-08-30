@@ -16,29 +16,4 @@
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "&copy; OpenStreetMap contributors",
       }).addTo(map);
-
-      const shapeData = JSON.parse(document.querySelector('.shape-cors').innerText);
-
-      const coordinates = shapeData.coordinates[0][0].map(coord => [coord[1], coord[0]]);
-
-      const polygon = L.polygon(coordinates).addTo(map);
-
-      const drawControl = new L.Control.Draw({
-        edit: {
-          featureGroup: L.featureGroup([polygon]).addTo(map),
-          remove: false,
-        },
-        draw: false,
-      });
-      map.addControl(drawControl);
-
-      // Обробка події редагування
-      map.on(L.Draw.Event.EDITED, function (e) {
-        const layers = e.layers;
-        layers.eachLayer(function (layer) {
-          // Отримання нових координат після редагування
-          const newCoordinates = layer.getLatLngs();
-          console.log(newCoordinates);
-        });
-      });
     </script>
