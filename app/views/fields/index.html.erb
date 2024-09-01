@@ -14,9 +14,18 @@
 <table class="table fields-index">
   <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Area(m2)</th>
+      <th>
+        <%= link_to "ID #{sort_indicator('id')}", fields_path(q: { s: "id #{sort_direction('id')}" }),
+          data: { turbo: false } %>
+      </th>
+      <th>
+        <%= link_to "Name #{sort_indicator('name')}", fields_path(q: { s: "name #{sort_direction('name')}" }),
+          data: { turbo: false } %>
+      </th>
+      <th>
+        <%= link_to "Area(m2) #{sort_indicator('area')}", fields_path(q: { s: "area #{sort_direction('area')}" }),
+          data: { turbo: false } %>
+      </th>
     </tr>
   </thead>
     <tbody>

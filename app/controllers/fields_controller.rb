@@ -2,7 +2,8 @@ class FieldsController < ApplicationController
   before_action :set_field, only: %i[edit update]
   
   def index
-    @fields = Field.all
+    # debugger
+    @fields = Field.ransack(params[:q]).result
   end
 
   def edit; end
