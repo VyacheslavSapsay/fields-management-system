@@ -8,41 +8,13 @@ class FieldsController < ApplicationController
   def edit; end
 
   def update
-    @field.update(field_params)
-    geojson = RGeo::GeoJSON.decode(field_params[:shape], json_parser: :json)
-    
-    if geojson.is_a?(RGeo::GeoJSON::FeatureCollection)
-      # Збираємо всі полігони з FeatureCollection
-      polygons = []
-    
-      geojson.each do |feature|
-        geom = feature.geometry
-    
-        if geom.geometry_type == RGeo::Feature::Polygon
-          polygons << geom
-        elsif geom.geometry_type == RGeo::Feature::MultiPolygon
-          # Розгортаємо MultiPolygon у масив Polygon геометрій
-          geom.each do |polygon|
-            polygons << polygon
-          end
-        end
-      end
-    
-      # Об'єднуємо їх у MultiPolygon
-      factory = RGeo::Geos.factory(srid: 4326)
-      multi_polygon = factory.multi_polygon(polygons)
-    
-      # Зберігаємо MultiPolygon у базі даних
-      @field.shape = multi_polygon
+    @field = Field.new(field_params)
+    if @field.save
+      redirect_to edit_field_path(@field), notice: "Field was successfully edited"
     else
-      # Якщо це не FeatureCollection, просто зберігаємо геометрію як є
-      @field.shape = geojson
+      flash.now[:error] = @field.errors.full_messages.to_sentence
+      render :new, status: :unprocessable_entity
     end
-    
-    
-    debugger
-
-    @field.save
   end
 
   def new
@@ -50,11 +22,11 @@ class FieldsController < ApplicationController
   end
 
   def create
-    field = Field.new(field_params)
-
-    if field.save
-      redirect_to url_for(action: :edit, id: field.id), notice: "Field was successfully created"
+    @field = Field.new(field_params)
+    if @field.save
+      redirect_to edit_field_path(@field), notice: "Field was successfully created"
     else
+      flash.now[:error] = @field.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
@@ -67,7 +39,7 @@ class FieldsController < ApplicationController
 
   def field_params
     params.require(:field).permit(:name, :shape).tap do |param|
-      param[:shape] = GeojsonFormatterService.format_geojson(param[:shape])
+      param[:shape] = GeoDataService.format_geojson(param[:shape])
     end
   end
 end

@@ -16,15 +16,15 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Area</th>
+        <th>Area(m2)</th>
     </tr>
   </thead>
     <tbody>
 			<% @fields.each do |field| %>
 			  <tr id="field-<%= field.id %>">
           <td><%= field.id %></td>
-          <td><%= link_to field.name, edit_field_path(field) %></td>
-          <td>field.area</td>
+          <td><%= link_to field.name, edit_field_path(field), data: { turbo: false } %></td>
+          <td><%= field.area&.round(2) %></td>
 					<td hidden class="item-geojson"><%= RGeo::GeoJSON.encode(field.shape).to_json %></td>
 					<td hidden class="item-link"><%= link_to field.name, field_path(field) %></td>
         </tr>
