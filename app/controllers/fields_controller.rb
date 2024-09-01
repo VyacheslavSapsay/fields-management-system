@@ -50,28 +50,10 @@ class FieldsController < ApplicationController
   end
 
   def create
-    # debugger
-    geojson = RGeo::GeoJSON.decode(field_params[:shape], json_parser: :json)
+    field = Field.new(field_params)
 
-    @field = Field.new(field_params)
-
-    if geojson.is_a?(RGeo::GeoJSON::FeatureCollection)
-      # Збираємо всі полігони з FeatureCollection
-      polygons = geojson.map(&:geometry).select { |geom| geom.geometry_type == RGeo::Feature::Polygon }
-    
-      # Об'єднуємо їх у MultiPolygon
-      multi_polygon = RGeo::Geos.factory(srid: 4326).multi_polygon(polygons)
-      
-      # Зберігаємо MultiPolygon у базі даних
-      @field.shape = multi_polygon
-    else
-      # Якщо це не FeatureCollection, просто зберігаємо геометрію як є
-      @field.shape = geojson
-    end
-
-    debugger
-    if @field.save
-      redirect_to url_for(action: :edit, id: @field.id), notice: "Field was successfully created"
+    if field.save
+      redirect_to url_for(action: :edit, id: field.id), notice: "Field was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
@@ -84,6 +66,8 @@ class FieldsController < ApplicationController
   end
 
   def field_params
-    params.require(:field).permit(:name, :shape)
+    params.require(:field).permit(:name, :shape).tap do |param|
+      param[:shape] = GeojsonFormatterService.format_geojson(param[:shape])
+    end
   end
 end
