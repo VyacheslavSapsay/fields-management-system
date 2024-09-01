@@ -152,6 +152,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
+    pagy (9.0.8)
     pg (1.5.7)
     psych (5.1.2)
       stringio
@@ -274,6 +275,7 @@ DEPENDENCIES
   error_highlight (>= 0.4.0)
   importmap-rails
   jbuilder
+  pagy
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.4)

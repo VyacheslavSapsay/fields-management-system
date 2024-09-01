@@ -6,6 +6,7 @@ gem "activerecord-postgis-adapter"
 gem "bootsnap", require: false
 gem "importmap-rails"
 gem "jbuilder"
+gem 'pagy'
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem 'ransack'

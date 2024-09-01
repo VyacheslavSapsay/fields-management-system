@@ -1,4 +1,7 @@
+require 'pagy/extras/bootstrap'
 module ApplicationHelper
+  include Pagy::Frontend
+
   FLASH_TYPES = {
     'notice' => 'alert alert-success',
     'error' => 'alert alert-danger',

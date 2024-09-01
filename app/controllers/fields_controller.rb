@@ -1,9 +1,12 @@
 class FieldsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_field, only: %i[edit update]
   
   def index
-    # debugger
     @fields = Field.ransack(params[:q]).result
+
+    @pagy, @fields = pagy(@fields)
   end
 
   def edit; end
