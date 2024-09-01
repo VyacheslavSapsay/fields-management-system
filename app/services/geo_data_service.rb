@@ -17,7 +17,7 @@ module GeoDataService
             end
           end
         end
-      
+
         factory = RGeo::Geos.factory(srid: 4326)
         multi_polygon = factory.multi_polygon(polygons)
       

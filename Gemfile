@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.1.3"
+ruby "3.3.4"
 
 gem "activerecord-postgis-adapter"
 gem "bootsnap", require: false
@@ -32,5 +32,10 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+end
+
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 6.1.0'
 end
 
