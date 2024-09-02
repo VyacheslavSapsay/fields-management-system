@@ -1,0 +1,6 @@
+en:
+  layouts:
+    navbar:
+      new_field: New field
+      search_by_name: Search by name
+      search: Search

@@ -12,22 +12,22 @@
 <div id="map"></div>
 
 <div class="show-options">
-  <%= link_to 'Show as list', fields_path(disable_pagy: true), data: { turbo: false } %> |
-  <%= link_to 'Show as pages', fields_path, data: { turbo: false } %>
+  <%= link_to t('.show_as_list'), fields_path(disable_pagy: true), data: { turbo: false } %> |
+  <%= link_to t('.show_as_pages'), fields_path, data: { turbo: false } %>
 </div>
 <table class="table fields-index">
   <thead>
     <tr>
       <th>
-        <%= link_to "ID #{sort_indicator('id')}", fields_path(q: { s: "id #{sort_direction('id')}" }),
+        <%= link_to "#{t '.id'} #{sort_indicator('id')}", fields_path(q: { s: "id #{sort_direction('id')}" }),
           data: { turbo: false } %>
       </th>
       <th>
-        <%= link_to "Name #{sort_indicator('name')}", fields_path(q: { s: "name #{sort_direction('name')}" }),
+        <%= link_to "#{t '.name'} #{sort_indicator('name')}", fields_path(q: { s: "name #{sort_direction('name')}" }),
           data: { turbo: false } %>
       </th>
       <th>
-        <%= link_to "Area(m2) #{sort_indicator('area')}", fields_path(q: { s: "area #{sort_direction('area')}" }),
+        <%= link_to "#{t '.area'} #{sort_indicator('area')}", fields_path(q: { s: "area #{sort_direction('area')}" }),
           data: { turbo: false } %>
       </th>
     </tr>

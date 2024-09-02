@@ -9,19 +9,10 @@
         <li class="nav-item active">
           <%= link_to t('.new_field'), new_field_path, class: 'nav-link', data: { turbo: false } %>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
       </ul>
       <%= form_with url: fields_path, method: :get, class: "form-inline", local: true, data: { turbo: false } do %>
-        <%= text_field_tag 'q[name_cont]', params.dig(:q, :name_cont), placeholder: "Search by Name", class: "form-control mr-sm-2", aria: { label: "Search" } %>
-        <%= submit_tag "Search", class: "btn btn-outline-info my-2 my-sm-0" %>
+        <%= text_field_tag 'q[name_cont]', params.dig(:q, :name_cont), placeholder: t('.search_by_name'), class: "form-control mr-sm-2", aria: { label: "Search" } %>
+        <%= submit_tag t('.search'), class: "btn btn-outline-info my-2 my-sm-0" %>
       <% end %>
     </div>
   </nav>

@@ -14,7 +14,7 @@
 
 	<%= f.hidden_field :shape, id: 'shape-field', value: RGeo::GeoJSON.encode(field.shape).to_json %>
 
-	<%= f.submit 'Save', class: 'btn btn-success' %>
+	<%= f.submit t('.save'), class: 'btn btn-success' %>
 <% end %>
 
 <div id="map"></div>

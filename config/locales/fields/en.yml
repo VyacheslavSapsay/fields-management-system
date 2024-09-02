@@ -1,0 +1,12 @@
+en:
+  fields:
+    new:
+      new_field: New field
+    form:
+      save: Save
+    index:
+      id: ID
+      name: Name
+      area: Area(m2)
+      show_as_list: Show as list
+      show_as_pages: Show as pages

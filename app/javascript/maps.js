@@ -46,7 +46,6 @@ $(document).ready(function () {
         });
       });
 
-      // Отримуємо межі всіх полігонів і встановлюємо карту в ці межі
       var bounds = geoJsonLayer.getBounds();
       map.fitBounds(bounds);
     }
@@ -63,14 +62,12 @@ $(document).ready(function () {
 
       var updatedJsonString = JSON.stringify(updatedGeoJSON);
       document.getElementById("shape-field").value = updatedJsonString;
-      console.log("Оновлене значення прихованого поля:", updatedJsonString);
     }
 
     map.on("pm:create", function (e) {
       var layer = e.layer;
       allLayers.push(layer);
       layer.addTo(map);
-      console.log("Новий полігон доданий в allLayers:", allLayers);
       updateShapeField();
 
       layer.pm.enable({ allowSelfIntersection: false });
@@ -105,9 +102,11 @@ $(document).ready(function () {
       drawPolyline: false,
       drawRectangle: false,
       drawCircle: false,
+      drawCircleMarker: false,
       drawText: false,
       drawPolygon: true,
-      cutPolygon: true,
+      cutPolygon: false,
+      rotateMode: false,
       editMode: true,
       removalMode: true,
       dragMode: true,
