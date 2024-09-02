@@ -30,8 +30,7 @@ class FieldsController < ApplicationController
   end
 
   def update
-    @field = Field.new(field_params)
-    if @field.save
+    if @field.update(field_params)
       redirect_to edit_field_path(@field), notice: I18n.t('fields.successful_created')
     else
       flash.now[:error] = @field.errors.full_messages.to_sentence
