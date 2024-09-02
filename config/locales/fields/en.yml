@@ -8,6 +8,8 @@ en:
       id: ID
       name: Name
       area: Area(m2)
+      created_at: Created at
+      updated_at: Updated at
       show_as_list: Show as list
       show_as_pages: Show as pages
     successful_created: Field was successfully created

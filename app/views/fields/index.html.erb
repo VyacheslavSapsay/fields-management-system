@@ -30,6 +30,14 @@
         <%= link_to "#{t '.area'} #{sort_indicator('area')}", fields_path(q: { s: "area #{sort_direction('area')}" }),
           data: { turbo: false } %>
       </th>
+      <th>
+        <%= link_to "#{t '.created_at'} #{sort_indicator('created_at')}", fields_path(q: { s: "created_at #{sort_direction('created_at')}" }),
+          data: { turbo: false } %>
+      </th>
+      <th>
+        <%= link_to "#{t '.updated_at'} #{sort_indicator('updated_at')}", fields_path(q: { s: "updated_at #{sort_direction('updated_at')}" }),
+          data: { turbo: false } %>
+      </th>
     </tr>
   </thead>
     <tbody>
@@ -38,6 +46,8 @@
           <td><%= field.id %></td>
           <td><%= link_to field.name, edit_field_path(field), data: { turbo: false } %></td>
           <td><%= field.area&.round(2) %></td>
+          <td><%= field.created_at %></td>
+          <td><%= field.updated_at %></td>
 					<td hidden class="item-geojson"><%= RGeo::GeoJSON.encode(field.shape).to_json %></td>
 					<td hidden class="item-link"><%= link_to field.name, edit_field_path(field), data: { turbo: false } %></td>
         </tr>
