@@ -11,3 +11,10 @@
   height: 400px;
   width: 100%;
 }
+
+.edit-map {
+  height: 400px;
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+}
