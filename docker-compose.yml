@@ -14,7 +14,6 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       RAILS_ENV: ${RAILS_ENV:-development}
-      DATABASE_URL: postgis://postgres:postgres@postgres:5432/fields_management_system
       REDIS_URL: redis://redis:6379/0
       BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
       WEB_CONCURRENCY: 1

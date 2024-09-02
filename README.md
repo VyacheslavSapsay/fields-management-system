@@ -13,9 +13,10 @@ Access the app at <http://localhost:3000/>.
 
 ## Running test
 
-1. docker compose run rails rails db:create RAILS_ENV=test
-2. docker compose run rails rails db:migrate RAILS_ENV=test
-3. docker compose run rails rspec
+1. `docker compose up`
+1. `docker compose run rails rails db:create RAILS_ENV=test`
+1. `docker compose run rails rails db:migrate RAILS_ENV=test`
+1. `docker compose run rails rspec`
 
 ## Check rubocop linter:
 
