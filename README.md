@@ -1,24 +1,24 @@
-# README
+# FieldsManagementSystem
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Rails-7/Ruby-3.3.4 app.
 
-Things you may want to cover:
+### Running app with Docker
 
-* Ruby version
+1. `docker compose build`
+2. `docker compose up -d`
+3. `docker compose run rails rails db:create`
+4. `docker compose run rails rails db:migrate`
+5. `docker compose up rails`
 
-* System dependencies
+Access the app at <http://localhost:3000/>.
 
-* Configuration
+## Running test
 
-* Database creation
+1. docker compose up -d
+2. docker compose run rails rails db:create RAILS_ENV=test
+3. docker compose run rails rails db:migrate RAILS_ENV=test
+4. docker compose run rails rspec
 
-* Database initialization
+## Check rubocop linter:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. docker compose run rails rubocop
