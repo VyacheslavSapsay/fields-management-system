@@ -10,3 +10,5 @@ en:
       area: Area(m2)
       show_as_list: Show as list
       show_as_pages: Show as pages
+    successful_created: Field was successfully created
+    successful_edited: Field was successfully created

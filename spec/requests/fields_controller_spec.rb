@@ -28,7 +28,7 @@ RSpec.describe 'FieldsController' do
     let(:valid_params) do
       {
         field: {
-          name: "some name",
+          name: 'some name',
           shape: shape_to_update
         }
       }
@@ -40,7 +40,7 @@ RSpec.describe 'FieldsController' do
     end
 
     it 'updates return unprocessable_entity' do
-      patch field_path(field), params: { field: { shape: nil, name: nil }}
+      patch field_path(field), params: { field: { shape: nil, name: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe 'FieldsController' do
     let(:valid_params) do
       {
         field: {
-          name: "some name",
+          name: 'some name',
           shape: shape_to_create
         }
       }
@@ -63,7 +63,7 @@ RSpec.describe 'FieldsController' do
     end
 
     it 'returns unprocessable_entity' do
-      post fields_path, params: { field: { shape: nil, name: nil }}
+      post fields_path, params: { field: { shape: nil, name: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end

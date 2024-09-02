@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pagy/extras/bootstrap'
 module ApplicationHelper
   include Pagy::Frontend
@@ -22,11 +24,11 @@ module ApplicationHelper
 
   def sort_indicator(column)
     if params.dig(:q, :s) == "#{column} asc"
-      "↑"
+      '↑'
     elsif params.dig(:q, :s) == "#{column} desc"
-      "↓"
+      '↓'
     else
-      ""
+      ''
     end
   end
 end

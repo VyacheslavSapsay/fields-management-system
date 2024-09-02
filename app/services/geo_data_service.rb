@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module GeoDataService
   class << self
     def format_geojson(shape)
       geojson = RGeo::GeoJSON.decode(shape, json_parser: :json)
-    
+
       if geojson.is_a?(RGeo::GeoJSON::FeatureCollection)
         polygons = []
-      
+
         geojson.each do |feature|
           geom = feature.geometry
-      
+
           if geom.geometry_type == RGeo::Feature::Polygon
             polygons << geom
           elsif geom.geometry_type == RGeo::Feature::MultiPolygon
@@ -19,9 +21,8 @@ module GeoDataService
         end
 
         factory = RGeo::Geos.factory(srid: 4326)
-        multi_polygon = factory.multi_polygon(polygons)
-      
-        multi_polygon
+        factory.multi_polygon(polygons)
+
       else
         geojson
       end
@@ -54,7 +55,7 @@ module GeoDataService
 
     def find_utm_srid(longitude, latitude)
       zone = find_utm_zone(longitude)
-      hemisphere = latitude >= 0 ? 32600 : 32700
+      hemisphere = latitude >= 0 ? 32_600 : 32_700
       hemisphere + zone
     end
   end

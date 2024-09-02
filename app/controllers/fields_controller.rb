@@ -1,36 +1,38 @@
+# frozen_string_literal: true
+
 class FieldsController < ApplicationController
   include Pagy::Backend
 
   before_action :set_field, only: %i[edit update]
-  
+
   def index
     @fields = Field.ransack(params[:q]).result
 
-    unless params.dig(:disable_pagy)
-      @pagy, @fields = pagy(@fields)
-    end
-  end
+    return if params[:disable_pagy]
 
-  def edit; end
-
-  def update
-    @field = Field.new(field_params)
-    if @field.save
-      redirect_to edit_field_path(@field), notice: "Field was successfully edited"
-    else
-      flash.now[:error] = @field.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
-    end
+    @pagy, @fields = pagy(@fields)
   end
 
   def new
     @field = Field.new
   end
 
+  def edit; end
+
   def create
     @field = Field.new(field_params)
     if @field.save
-      redirect_to edit_field_path(@field), notice: "Field was successfully created"
+      redirect_to edit_field_path(@field), notice: I18n.t('fields.successful_created')
+    else
+      flash.now[:error] = @field.errors.full_messages.to_sentence
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @field = Field.new(field_params)
+    if @field.save
+      redirect_to edit_field_path(@field), notice: I18n.t('fields.successful_created')
     else
       flash.now[:error] = @field.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
