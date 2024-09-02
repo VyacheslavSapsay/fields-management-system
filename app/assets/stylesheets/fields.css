@@ -1,3 +1,8 @@
 #map {
   border: 4mm ridge rgba(75, 76, 69, 0.6);
 }
+
+.show-options {
+  text-align: right;
+  margin-right: 10px;
+}

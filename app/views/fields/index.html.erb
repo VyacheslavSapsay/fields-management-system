@@ -11,6 +11,10 @@
 
 <div id="map"></div>
 
+<div class="show-options">
+  <%= link_to 'Show as list', fields_path(disable_pagy: true), data: { turbo: false } %> |
+  <%= link_to 'Show as pages', fields_path, data: { turbo: false } %>
+</div>
 <table class="table fields-index">
   <thead>
     <tr>
@@ -41,6 +45,8 @@
     </tbody>
 </table>
 
-<nav data-turbo="false">
-  <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-<nav data-turbo="false">
+<% if @pagy.present?  %>
+  <nav data-turbo="false">
+    <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 0 %>
+  </nav>
+<% end %>

@@ -6,7 +6,9 @@ class FieldsController < ApplicationController
   def index
     @fields = Field.ransack(params[:q]).result
 
-    @pagy, @fields = pagy(@fields)
+    unless params.dig(:disable_pagy)
+      @pagy, @fields = pagy(@fields)
+    end
   end
 
   def edit; end
