@@ -39,7 +39,7 @@
           <td><%= link_to field.name, edit_field_path(field), data: { turbo: false } %></td>
           <td><%= field.area&.round(2) %></td>
 					<td hidden class="item-geojson"><%= RGeo::GeoJSON.encode(field.shape).to_json %></td>
-					<td hidden class="item-link"><%= link_to field.name, field_path(field) %></td>
+					<td hidden class="item-link"><%= link_to field.name, edit_field_path(field), data: { turbo: false } %></td>
         </tr>
 			<% end %>
     </tbody>
