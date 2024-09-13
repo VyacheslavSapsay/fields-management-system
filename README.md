@@ -1,6 +1,6 @@
 # FieldsManagementSystem
 
-This is a Rails-7/Ruby-3.3.4 app.
+This is a Rails-7.1.4/Ruby-3.3.4 app.
 
 ### Running app with Docker
 
